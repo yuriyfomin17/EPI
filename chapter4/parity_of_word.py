@@ -15,18 +15,6 @@ def compute_parity_optimized(num: int) -> int:
         num &= num - 1
     return parity
 
-PRECOMPUTED_PARITY = []
-
-# time complexity is O(N\L) where L is the width of the word and n is the size of the word
-def compute_parity_pre_computed(num: int) -> int:
-    mask_size = 16
-    mask = 0XFFFF
-    return (PRECOMPUTED_PARITY[(num >> 3 * mask_size) & mask] ^
-            PRECOMPUTED_PARITY[(num >> 2 * mask_size) & mask] ^
-            PRECOMPUTED_PARITY[(num >> mask_size) & mask] ^
-            PRECOMPUTED_PARITY[(num & mask)]
-            )
-
 
 # time complexity is log n where n is the size of the word
 def compute_parity_optimized_xor(num: int) -> int:
@@ -40,4 +28,19 @@ def compute_parity_optimized_xor(num: int) -> int:
 
 
 print(compute_parity_optimized_xor(9))
-# print(computer_parity_optimized(8))
+
+PRE_COMPUTED_PARITY = [0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1]
+
+
+# time complexity is O(N/L) where L is the width of the words and N is the word size.
+def compute_parity_with_lookup_table(num: int) -> int:
+    mask_size = 16
+    mask = 0xFFFF
+    return (PRE_COMPUTED_PARITY[(num >> (3 * mask_size)) & mask] |
+            PRE_COMPUTED_PARITY[(num >> (2 * mask_size)) & mask] |
+            PRE_COMPUTED_PARITY[(num >> mask_size) & mask] |
+            PRE_COMPUTED_PARITY[num & mask]
+            )
+
+
+print(compute_parity_with_lookup_table(8))
