@@ -24,3 +24,11 @@ def swap_bits_optimized(num: int, i: int, j: int) -> int:
 
 
 print(swap_bits_optimized(73, 1, 6))
+
+
+def swap_bits_test( num: int, i: int, j: int) -> int:
+    if (num >> i) & 1 != (num >> j) & 1:
+        mask = 1 << i | 1 << j
+        return num ^ mask
+    return num
+
