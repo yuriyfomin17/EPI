@@ -1,15 +1,23 @@
 from typing import List
 
 
-def even_number_first_odd_last(nums: List[int]) -> List[int]:
-    odd_idx = len(nums) - 1
-    even_idx = 0
-    while even_idx < odd_idx:
-        if nums[even_idx] % 2 == 0:
-            even_idx += 1
-        else:
-            nums[even_idx], nums[odd_idx] = nums[odd_idx], nums[even_idx]
-            odd_idx -= 1
-    return nums
+def dutch_flag_partition(nums: List[int], pivot: int):
+    pivot_num = nums[pivot]
 
-print(even_number_first_odd_last([3, 4, 5, 9, 8, 10, 6]))
+    low = 0
+    for curr_idx in range(len(nums)):
+        if pivot_num > nums[curr_idx]:
+            nums[curr_idx], nums[low] = nums[low], nums[curr_idx]
+            low += 1
+    high = len(nums) - 1
+    for curr_idx in reversed(range(len(nums))):
+        if pivot_num < nums[curr_idx]:
+            nums[curr_idx], nums[high] = nums[high], nums[curr_idx]
+            high -= 1
+
+
+arr = [0, 1, 2, 0, 2, 1, 1]
+dutch_flag_partition(arr, 2)
+print(arr)
+
+

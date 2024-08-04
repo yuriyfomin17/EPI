@@ -1,5 +1,6 @@
 from typing import List
 
+
 def sort_seq(nums: List[int], start: int, end: int):
     pivot_num = nums[end]
     swap_marker = start - 1
@@ -7,7 +8,9 @@ def sort_seq(nums: List[int], start: int, end: int):
         if nums[curr_idx] > pivot_num:
             continue
         swap_marker += 1
-        nums[curr_idx], nums[swap_marker] = nums[swap_marker], nums[curr_idx]
+        if nums[swap_marker] > nums[curr_idx]:
+            nums[curr_idx], nums[swap_marker] = nums[swap_marker], nums[curr_idx]
+
     return swap_marker
 
 
