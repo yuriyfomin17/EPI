@@ -31,4 +31,19 @@ def compute_an_alteration_optimized(nums: List[int]) -> List[int]:
     return nums
 
 
+def compute_an_alteration_optimized_without_sorted(nums: List[int]) -> List[int]:
+    for i in range(len(nums)):
+        if i + 1 < len(nums):
+            min_num = min(nums[i], nums[i + 1])
+            max_num = max(nums[i], nums[i + 1])
+            if i % 2 != 0:
+                nums[i] = max_num
+                nums[i + 1] = min_num
+            else:
+                nums[i] = min_num
+                nums[i + 1] = max_num
+    return nums
+
+
 print(compute_an_alteration_optimized([3, 2, 6, 1, 5, 7, 8]))
+print(compute_an_alteration_optimized_without_sorted([3, 2, 6, 1, 5, 7, 8]))
