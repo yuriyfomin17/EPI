@@ -57,24 +57,26 @@ def count_numbers(nums: List[int], start_idx: int):
     return i, ct
 
 
-def m_times_appearance(nums: List[int], m: int) -> List[int]:
-    fast_idx = 0
-    slow_idx = 0
-    while fast_idx < len(nums):
-        num_to_count = nums[fast_idx]
-        fast_idx, num_count = count_numbers(nums, fast_idx)
-        if num_count == m:
-            nums[slow_idx] = num_to_count
-            slow_idx += 1
-            nums[slow_idx] = num_to_count
-            slow_idx += 1
-        else:
-            while num_count:
-                nums[slow_idx] = num_to_count
-                slow_idx += 1
-                num_count -= 1
+def min_of_two_and_m_freq(nums: List[int], m: int) -> List[int]:
+    i = 0
+    last_idx = 0
+    while i < len(nums):
+        num_to_count = nums[i]
+        ct = 0
+        while i < len(nums) and num_to_count == nums[i]:
+            nums[last_idx] = nums[i]
+            last_idx += 1
+            ct += 1
+            i += 1
+        if ct == m:
+            last_idx -= ct
+            last_idx += min(2, m)
 
+
+    while last_idx < len(nums):
+        nums[last_idx] = -1
+        last_idx += 1
     return nums
 
 
-print(m_times_appearance([1, 2, 2, 3, 3, 3, 4, 4, 4, 4], 3))
+print(min_of_two_and_m_freq([1, 2, 2, 3, 3, 3, 4, 4, 4, 4], 3))
