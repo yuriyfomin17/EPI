@@ -3,7 +3,6 @@ from typing import List
 
 # Time complexity is O(n^2) where n is the sudoku size board
 def is_valid_sudoku(partial_assignment: List[List[int]]) -> bool:
-    # TODO - you fill in here.
     def is_valid_sudoku_square(start_row: int, start_col: int) -> bool:
         set_square = [0] * 10
         for r in range(start_row, start_row + 3):
